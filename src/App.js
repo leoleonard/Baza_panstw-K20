@@ -1,21 +1,36 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Router, Route, IndexRoute, Link, IndexLink, hashHistory, browserHistory } from 'react-router';
+import style from './App.css';
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
-  }
+ render() {
+   return (
+     <Router history={hashHistory}>
+      <Route path='/' component={Navigation}>
+        <IndexRoute component={Home} />
+        <Route path='/contact' component={Contact} />
+        <Route path='hello/:name' component={Hello} />
+      <Route path='*' component={PageNotFound} />
+        </Route>
+      </Router>
+   )
+ }
 }
+
+const Navigation = props => (
+    <div>
+       <ul>
+            <li><IndexLink to='/' activeClassName='active'>Home</IndexLink></li>
+            <li><Link to="/contact" activeClassName='active'>Contact</Link></li>
+        </ul>
+        {props.children}
+    </div>
+);
+
+
+const Home = () => <h1>Hej, tu Home component</h1>
+const Contact = () => <h1>A tu Contact component</h1>
+const Hello = (props) => <h1>Witaj, {props.params.name}</h1>;
+const PageNotFound = () => <h1>404 Page Not Found</h1>;
 
 export default App;
