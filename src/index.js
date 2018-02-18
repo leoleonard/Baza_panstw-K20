@@ -2,15 +2,17 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import store from './store';
+import { Router, hashHistory } from 'react-router';
+import routes from './routes';
 import DevTools from './DevTools';
-import styles from './index.css';
+import style from './country.css';
 
 render(
     <Provider store={store}>
-    <div>
-        <h1>Inicjalizacja projektu</h1>
+        <div>
+        <Router history={hashHistory} routes={routes} />
         <DevTools />
-    </div>
-    </Provider>,
+        </div>
+  </Provider>,
     document.getElementById('root')
 );
